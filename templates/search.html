@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="path/to/your/script.js"></script>
     <title>Register</title>
     <style>
         /* Customize the style according to your preferences */
@@ -93,7 +92,7 @@
                 {% for ride in rides %}
                     <li>
                         {{ ride.from_location }} - {{ ride.to_location }} - {{ ride.to_location }} - ({{ ride.date }})
-                        <button id="register-button" class="register-button" onclick="doFunction()">Register</button>
+                        <button id="register-button" class="register-button" onclick="registerForTrip({{ ride.rides_id }})">Register</button>
                     </li>
                 {% endfor %}
             </ul>
@@ -102,5 +101,6 @@
     <div class="footer">
         &copy; 2024 RidePals | All rights reserved
     </div>
+    <script src="../static/script.js"></script>
 </body>
 </html>

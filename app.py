@@ -27,17 +27,9 @@ class Users(db.Model):
 
 
 class User_route(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    ride_id = db.Column(db.Integer, nullable=False)
-
-
-# users = {
-#     'john': 'password123',
-#     'jane': 'mypassword'
-
-# }
-
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user = db.Column(db.Integer, nullable=False)
+    route = db.Column(db.Integer, nullable=False)
 
 @app.route('/')
 def home():
@@ -57,7 +49,7 @@ def login():
 
         # Query the database for the user
         user = Users.query.filter_by(username=username).first()
-
+        print(user.user_id)
         if user and user.password == password:
             # Successful login
             return redirect(url_for('welcome', username=username))
@@ -146,28 +138,18 @@ def search():
             return f"Error: {str(e)}"
     rides = Rides.query.all()
     return render_template("search.html", rides=rides)
-#
-#
-# @app.route('/all_trips')
-# def all_trips():
-#     # Retrieve all rides from the database
-#     rides = Rides.query.all()  # Assuming Rides is your SQLAlchemy model for rides
-#
-#     # Render a template with the ride data
-#     return render_template('search.html', rides=rides)
-
 
 @app.route('/register_trip', methods=['POST'])
 def register_trip():
+
     try:
         # Parse the ride ID from the request data (usually sent as JSON)
         data = request.get_json()
-        rides_id = data.get('rides_id')
+        rides_id = data.get('rideId')
 
-        relationship = User_route(user_id=user_id, ride_id=ride_id)
+        relationship = User_route(user=2, route=rides_id)
         db.session.add(relationship)
         db.session.commit()
-
         return jsonify({'message': 'User registered for trip successfully'})
 
     except Exception as e:
