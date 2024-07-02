@@ -144,8 +144,8 @@ def search():
             return render_template("search.html", rides=filtered_rides)
         except Exception as e:
             return f"Error: {str(e)}"
-
-    return render_template("search.html")
+    rides = Rides.query.all()
+    return render_template("search.html", rides=rides)
 #
 #
 # @app.route('/all_trips')
